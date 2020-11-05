@@ -6,7 +6,7 @@
                 <img src="../assets/heima.png" alt="">
                 <span> <router-link to="/welcome">电商后台管理系统</router-link> </span>
             </div>
-            <el-button type="info" @click="logout">退出</el-button>
+            <el-button type="info" @click="logout">退出登录</el-button>
         </el-header>
         <!-- 内容区 -->
         <el-container>
