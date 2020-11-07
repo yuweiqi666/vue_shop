@@ -1,7 +1,5 @@
 <template>
-    <div>
-        welcome
-    </div>
+    <div></div>
 </template>
 
 <style lang="less" scoped>

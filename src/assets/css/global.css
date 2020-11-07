@@ -27,3 +27,7 @@ a {
 .el-row {
     margin-bottom: 8px;
 }
+
+.current {
+    padding: 20px;
+}

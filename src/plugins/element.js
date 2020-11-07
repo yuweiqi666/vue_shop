@@ -23,7 +23,12 @@ import { Button,
          Switch,
          Tooltip,
          Pagination,
-         Dialog
+         Dialog,
+         Tag,
+         MessageBox,
+         Tree,
+         Option,
+         Select
         } from 'element-ui'
 
 Vue.use(Button)
@@ -49,5 +54,12 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
+Vue.use(Option)
+Vue.use(Select)
 //将Message挂载到Vue的原型对象上
 Vue.prototype.$message = Message
+
+// //挂载确定删除弹出框
+Vue.prototype.$confirm = MessageBox.confirm;
