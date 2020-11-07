@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="current">
         <h1>订单列表</h1>
     </div>
 </template>

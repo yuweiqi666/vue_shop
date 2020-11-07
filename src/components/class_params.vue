@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="current">
         <h1>分类参数</h1>
     </div>
 </template>

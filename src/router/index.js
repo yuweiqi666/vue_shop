@@ -23,14 +23,14 @@ const router = new VueRouter({
     { path: '/login', component: login },
     { path: '/home', component: home, redirect: '/welcome', children: [
       { path: '/welcome', component: welcome },
-      { path: '/110', component: users_list },
-      { path: '/111', component: roles_list },
-      { path: '/112', component: rights_list },
-      { path: '/104', component: goods_list },
-      { path: '/115', component: class_params },
-      { path: '/121', component: goods_class },
-      { path: '/107', component: orders_list },
-      { path: '/146', component: data_table }
+      { path: '/users', component: users_list },
+      { path: '/roles', component: roles_list },
+      { path: '/rights', component: rights_list },
+      { path: '/goods', component: goods_list },
+      { path: '/params', component: class_params },
+      { path: '/categories', component: goods_class },
+      { path: '/orders', component: orders_list },
+      { path: '/reports', component: data_table }
     ] },
   ]
 })

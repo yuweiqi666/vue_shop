@@ -1,11 +1,10 @@
 <template>
-    <div>
+    <div class="current">
         <!-- 面包屑导航 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+          <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+          <el-breadcrumb-item>用户列表</el-breadcrumb-item>
         </el-breadcrumb>
         <!-- 卡片 -->
         <el-card class="box-card">
@@ -45,7 +44,7 @@
                             <el-button type="danger" icon="el-icon-delete" size="mini" @click="showDelDialog(scope.row)"></el-button>
                             <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
                                 <!-- 分配角色按钮 -->
-                                <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+                                <el-button type="warning" icon="el-icon-setting" size="mini" @click="showDistributeRoleDialog(scope.row)" ></el-button>
                             </el-tooltip>
                         </template>
                     </el-table-column>
@@ -116,6 +115,34 @@
           <span slot="footer" class="dialog-footer">
             <el-button @click="delDialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="delUser">确 定</el-button>
+          </span>
+        </el-dialog>
+        <!-- 分配角色对话框 -->
+        <el-dialog
+          title="分配角色"
+          :visible.sync="distributeRoleDialogVisible"
+          width="30%" @close="closeDistributeRoleDialog">
+            <!-- 对话框内容 -->
+            <el-form :model="distributeRoleForm">
+              <el-form-item label="当前用户：">
+                <span>{{distributeRoleForm.username}}</span>
+              </el-form-item>
+              <el-form-item label="当前角色：">
+                <span>{{distributeRoleForm.role_name}}</span>
+              </el-form-item>
+              <el-form-item label="角色分配">
+                <el-select v-model="selectRoleId" placeholder="请选择">
+                  <el-option v-for="item in rolesList"
+                            :key="item.id"
+                            :label="item.roleName"
+                            :value="item.id"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+          <!-- 对话框底部 -->
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="distributeRoleDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="distributeRole">确 定</el-button>
           </span>
         </el-dialog>
     </div>
@@ -213,7 +240,16 @@ export default {
             },
             // 删除用户对话框的显示与隐藏
             delDialogVisible: false,
-            delForm: {}
+            // 删除用户表单
+            delForm: {},
+            //分配角色对话框的显示与隐藏
+            distributeRoleDialogVisible: false,
+            // 分配角色表单
+            distributeRoleForm: {},
+            //所有角色名字数据
+            rolesList: {},
+            //选择的分配角色的id
+            selectRoleId: ''
         }
     },
     created: function() {
@@ -232,7 +268,7 @@ export default {
         },
         //监听pagesize改变的事件
         handleSizeChange: function(newSize) {
-            console.log(newSize);
+            // console.log(newSize);
             this.queryData.pagesize = newSize
             this.usersList()
         },
@@ -274,7 +310,7 @@ export default {
                 this.addForm.password = '',
                 this.addForm.email = '',
                 this.addForm.mobile = ''
-                console.log(res);
+                // console.log(res);
                 if(res.meta.status !== 201) return this.$message.error('添加失败用户')
                 //调用接口重新获取数据
                 this.addDialogVisible = false 
@@ -291,7 +327,7 @@ export default {
         },
         //调用接口展示编辑用户的对话框
         showEditDialog: async function(userInfo) { 
-            console.log(userInfo.id);
+            // console.log(userInfo.id);
             // 调用接口通过id查询用户信息
             let { data: res } = await this.$http.get(`users/${userInfo.id}`)
             if(res.meta.status !== 200) {
@@ -325,7 +361,7 @@ export default {
         },
         //展示删除用户对话框
         showDelDialog: function(userInfo) {
-            console.log(userInfo.id);
+            // console.log(userInfo.id);
             this.delForm = userInfo
             this.delDialogVisible = true
         },
@@ -339,6 +375,36 @@ export default {
             this.$message.success('删除成功')
             this.delForm = {}
             this.delDialogVisible = false
+        },
+        // 展示分配角色对话框
+        async showDistributeRoleDialog(role) {
+            this.distributeRoleForm = role
+            //展示对话框之前获取所有的角色名称
+            let { data: res } = await this.$http.get('roles')
+            if(res.meta.status !== 200) return this.$message.error('获取角色失败')
+            this.rolesList = res.data
+            console.log(this.rolesList);
+            this.$message.success('获取角色成功')
+            this.distributeRoleDialogVisible = true
+            
+        },
+        // 提交分配角色
+        async distributeRole() {
+            if(!this.selectRoleId) return this.$message.error('请选择要分配的角色')
+            // 如果输入框不为空  发起请求
+            let { data: res } = await this.$http.put(`users/${this.distributeRoleForm.id}/role`, {
+                rid: this.selectRoleId
+            })
+            if(res.meta.status !== 200) return this.$message.error('分配角色失败')
+            this.usersList()
+            this.$message.success('分配角色成功')
+            this.distributeRoleDialogVisible = false
+
+        },
+        //关闭分配角色对话框重置数据
+        closeDistributeRoleDialog() {
+            this.selectRoleId = ''
+            this.rolesList = {}
         }
             
     }

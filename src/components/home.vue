@@ -24,7 +24,7 @@
                               <span>{{item.authName}}</span>
                             </template>
                             <!-- 二级菜单 -->
-                            <el-menu-item :key="itemChildren.id" :index="itemChildren.id + ''" v-for="itemChildren in item.children">
+                            <el-menu-item :key="itemChildren.id" :index="'/' + itemChildren.path" v-for="itemChildren in item.children">
                                 <template slot="title">
                                     <i class="el-icon-menu"></i>
                                     <span> {{itemChildren.authName}}</span>
@@ -108,7 +108,7 @@ export default {
     }
     .el-main {
         background-color: #eaedf1;
-        // padding: 0;
+        padding: 0;
     }
     i {
         padding-right: 5px;

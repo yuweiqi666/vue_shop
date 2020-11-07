@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="current">
         <h1>数据报表</h1>
     </div>
 </template>
