@@ -31,3 +31,8 @@ a {
 .current {
     padding: 20px;
 }
+
+
+.el-cascader-panel {
+    height: 400px;
+}
