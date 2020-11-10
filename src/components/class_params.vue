@@ -354,7 +354,7 @@ export default {
                     attr_vals: data.attr_vals.join(',')
                 })
                 if(res.meta.status !== 200) return this.$message.error('编辑参数失败')
-                this.$Message.success('编辑参数成功')
+                this.$message.success('编辑参数成功')
                 
             }
 
@@ -370,7 +370,7 @@ export default {
                     attr_vals: data.attr_vals.join(',')
             })
             if(res.meta.status !== 200) return this.$message.error('编辑参数失败')
-            this.$Message.success('编辑参数成功')
+            this.$message.success('编辑参数成功')
         }
     }
 }
