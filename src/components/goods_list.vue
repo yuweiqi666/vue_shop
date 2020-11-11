@@ -122,6 +122,7 @@ export default {
             if(res.meta.status !== 200) return this.$message.error('搜索失败')
             this.goodsData = res.data
             this.$message.success('搜索成功')
+            this.getGoodsData()
         },
         // 清空输入框时触发
         clearInput() {
