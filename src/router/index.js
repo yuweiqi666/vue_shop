@@ -11,7 +11,7 @@ import class_params from '../components/class_params.vue'
 import goods_class from '../components/goods_class.vue'
 import orders_list from '../components/orders_list.vue'
 import data_table from '../components/data_table.vue'
-
+import add from '../components/add.vue'
 
 Vue.use(VueRouter)
 
@@ -30,7 +30,8 @@ const router = new VueRouter({
       { path: '/params', component: class_params },
       { path: '/categories', component: goods_class },
       { path: '/orders', component: orders_list },
-      { path: '/reports', component: data_table }
+      { path: '/reports', component: data_table },
+      { path: '/goods/add', component: add}
     ] },
   ]
 })

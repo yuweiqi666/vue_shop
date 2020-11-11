@@ -6,6 +6,12 @@ import './plugins/element.js'
 import './assets/css/global.css'
 //导入vue-table-with-tree-grid插件 （使用非elementui 组件）
 import TreeTable from 'vue-table-with-tree-grid'
+//导入VueQuillEditor插件（elementui 组件）
+import VueQuillEditor from 'vue-quill-editor'
+//导入VueQuillEditor插件的相关样式
+import 'quill/dist/quill.core.css' 
+import 'quill/dist/quill.snow.css' 
+import 'quill/dist/quill.bubble.css' 
 
 //引入字体图标样式
 import './assets/fonts/iconfont.css'
@@ -23,6 +29,8 @@ Vue.prototype.$http = axios;
 Vue.config.productionTip = false
 // 手动注册为全局组件 命名为tree-table
 Vue.component('tree-table', TreeTable)
+//讲VueQuillEditor注册为全局可用的组件
+Vue.use(VueQuillEditor)
 
 // 注册一个格式化事件的全局过滤器
 Vue.filter('dataFormat', function(originVal) {

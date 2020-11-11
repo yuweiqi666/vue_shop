@@ -18,7 +18,7 @@
               </el-col>
               <el-col :span="4">
                     <!-- 添加商品按钮 -->
-                    <el-button type="primary">添加商品</el-button>
+                    <el-button type="primary" @click="addGoods">添加商品</el-button>
               </el-col>
             </el-row>
             <!-- table表格区域 -->
@@ -126,6 +126,10 @@ export default {
         // 清空输入框时触发
         clearInput() {
             this.getGoodsData()
+        },
+        // 点击添加商品按钮
+        addGoods() {
+            this.$router.push('/goods/add')
         },
         // 展示删除商品对话框
         showDelDialog(data) {
